@@ -8,7 +8,7 @@ import { useCreateOrder, useGetPaymentDetails } from "@/hooks/useOrders";
 import Modal from "@/components/ui/Modal";
 
 const inputClass =
-  "w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900 bg-white";
+  "w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-[var(--brand-primary)] focus:border-[var(--brand-primary)] bg-white";
 
 const defaultAddressForm = {
   fullName: "",
@@ -140,7 +140,7 @@ export default function CheckoutSection() {
                     onClick={() => setSelectedAddress(addr)}
                     className={`w-full text-left p-4 rounded-xl border-2 transition-colors ${
                       (selectedAddress?._id || defaultAddr?._id) === addr._id
-                        ? "border-gray-900 bg-gray-50"
+                        ? "border-[var(--brand-primary)] bg-gray-50"
                         : "border-gray-100 hover:border-gray-300"
                     }`}
                   >
@@ -168,7 +168,7 @@ export default function CheckoutSection() {
                         className={`w-4 h-4 rounded-full border-2 flex-shrink-0 mt-0.5 ${
                           (selectedAddress?._id || defaultAddr?._id) ===
                           addr._id
-                            ? "border-gray-900 bg-gray-900"
+                            ? "border-[var(--brand-primary)] bg-[var(--brand-primary)]"
                             : "border-gray-300"
                         }`}
                       />
@@ -194,7 +194,7 @@ export default function CheckoutSection() {
                   onClick={() => setPaymentMethod(method.value)}
                   className={`w-full text-left px-4 py-3 rounded-xl border-2 flex items-center justify-between transition-colors ${
                     paymentMethod === method.value
-                      ? "border-gray-900 bg-gray-50"
+                      ? "border-[var(--brand-primary)] bg-gray-50"
                       : "border-gray-100 hover:border-gray-300"
                   }`}
                 >
@@ -202,7 +202,7 @@ export default function CheckoutSection() {
                   <div
                     className={`w-4 h-4 rounded-full border-2 flex-shrink-0 ${
                       paymentMethod === method.value
-                        ? "border-gray-900 bg-gray-900"
+                        ? "border-[var(--brand-primary)] bg-[var(--brand-primary)]"
                         : "border-gray-300"
                     }`}
                   />
@@ -394,7 +394,7 @@ export default function CheckoutSection() {
             <button
               onClick={handlePlaceOrder}
               disabled={isPending || !activeAddress}
-              className="w-full py-3 bg-gray-900 text-white text-sm font-medium rounded-xl hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="w-full py-3 bg-[var(--brand-primary)] text-white text-sm font-medium rounded-xl hover:bg-[var(--brand-primary-hover)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               {isPending ? "Placing Order..." : "Place Order"}
             </button>
@@ -515,7 +515,7 @@ export default function CheckoutSection() {
             <button
               type="submit"
               disabled={addingAddress}
-              className="flex-1 py-2.5 bg-gray-900 text-white text-sm rounded-lg hover:bg-gray-800 transition-colors"
+              className="flex-1 py-2.5 bg-[var(--brand-primary)] text-white text-sm rounded-lg hover:bg-[var(--brand-primary-hover)] transition-colors"
             >
               {addingAddress ? "Saving..." : "Use This Address"}
             </button>

@@ -4,7 +4,7 @@ import { userApiRoutes } from "@/utils/constants";
 
 export interface CartItem {
   product: { _id: string; name: string; images: string[]; isActive: boolean };
-  variant: string;
+  variant: string | { _id: string };
   name: string;
   image: string;
   attributes: Record<string, string>;
@@ -51,10 +51,11 @@ async function clearCart() {
   return res.data;
 }
 
-export function useGetCart() {
+export function useGetCart(enabled = true) {
   return useQuery({
     queryKey: ["cart"],
     queryFn: getCart,
+    enabled,
   });
 }
 

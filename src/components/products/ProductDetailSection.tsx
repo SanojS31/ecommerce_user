@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Heart, ShoppingCart, ArrowLeft, Image } from "lucide-react";
 import { useGetProductById, Variant } from "@/hooks/useProducts";
@@ -12,9 +12,10 @@ export default function ProductDetailSection() {
   const params = useParams();
   const router = useRouter();
   const productId = params.productId as string;
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const { data, isLoading } = useGetProductById(productId);
-  const { data: wishlistData } = useGetWishlist();
+  const { data: wishlistData } = useGetWishlist(isLoggedIn);
   const { mutate: addToCart, isPending: addingToCart } = useAddToCart();
   const { mutate: addToWishlist } = useAddToWishlist();
   const { mutate: removeFromWishlist } = useRemoveFromWishlist();
@@ -23,6 +24,10 @@ export default function ProductDetailSection() {
   const [selectedVariant, setSelectedVariant] = useState<Variant | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [addedMsg, setAddedMsg] = useState("");
+
+  useEffect(() => {
+    setIsLoggedIn(Boolean(localStorage.getItem("userAccessToken")));
+  }, []);
 
   const product = data?.product;
 
@@ -34,31 +39,31 @@ export default function ProductDetailSection() {
     (v: Variant) => v.isActive
   ) || [];
 
-  const getSizeVariants = () => {
-    const sizes = [...new Set(
+  const getSizeVariants = (): string[] => {
+    const sizes: string[] = Array.from(new Set(
       activeVariants
         .filter((v: Variant) => (v.attributes as any).size)
-        .map((v: Variant) => (v.attributes as any).size)
-    )];
+        .map((v: Variant) => String((v.attributes as any).size))
+    ));
     return sizes.sort((a, b) =>
       SIZE_ORDER.indexOf(a) - SIZE_ORDER.indexOf(b)
     );
   };
 
-  const getAgeVariants = () => {
-    return [...new Set(
+  const getAgeVariants = (): string[] => {
+    return Array.from(new Set(
       activeVariants
         .filter((v: Variant) => (v.attributes as any).ageGroup)
-        .map((v: Variant) => (v.attributes as any).ageGroup)
-    )];
+        .map((v: Variant) => String((v.attributes as any).ageGroup))
+    ));
   };
 
-  const getColorVariants = () => {
-    return [...new Set(
+  const getColorVariants = (): string[] => {
+    return Array.from(new Set(
       activeVariants
         .filter((v: Variant) => (v.attributes as any).color)
-        .map((v: Variant) => (v.attributes as any).color)
-    )];
+        .map((v: Variant) => String((v.attributes as any).color))
+    ));
   };
 
   const [selectedAttrs, setSelectedAttrs] = useState<Record<string, string>>({});
@@ -180,7 +185,7 @@ export default function ProductDetailSection() {
                   onClick={() => setSelectedImage(i)}
                   className={`w-16 h-16 rounded-lg overflow-hidden border-2 transition-colors ${
                     selectedImage === i
-                      ? "border-gray-900"
+                      ? "border-[var(--brand-primary)]"
                       : "border-gray-100 hover:border-gray-300"
                   }`}
                 >
@@ -237,7 +242,7 @@ export default function ProductDetailSection() {
                       disabled={outOfStock}
                       className={`px-3 py-1.5 text-sm rounded-lg border transition-colors ${
                         selectedAttrs.size === size
-                          ? "bg-gray-900 text-white border-gray-900"
+                          ? "bg-[var(--brand-primary)] text-white border-[var(--brand-primary)]"
                           : outOfStock
                           ? "text-gray-300 border-gray-100 cursor-not-allowed line-through"
                           : "text-gray-700 border-gray-200 hover:border-gray-400"
@@ -272,7 +277,7 @@ export default function ProductDetailSection() {
                       disabled={outOfStock}
                       className={`px-3 py-1.5 text-sm rounded-lg border transition-colors ${
                         selectedAttrs.ageGroup === age
-                          ? "bg-gray-900 text-white border-gray-900"
+                          ? "bg-[var(--brand-primary)] text-white border-[var(--brand-primary)]"
                           : outOfStock
                           ? "text-gray-300 border-gray-100 cursor-not-allowed line-through"
                           : "text-gray-700 border-gray-200 hover:border-gray-400"
@@ -297,7 +302,7 @@ export default function ProductDetailSection() {
                     onClick={() => handleAttrSelect("color", color)}
                     className={`px-3 py-1.5 text-sm rounded-lg border transition-colors ${
                       selectedAttrs.color === color
-                        ? "bg-gray-900 text-white border-gray-900"
+                        ? "bg-[var(--brand-primary)] text-white border-[var(--brand-primary)]"
                         : "text-gray-700 border-gray-200 hover:border-gray-400"
                     }`}
                   >
@@ -362,7 +367,7 @@ export default function ProductDetailSection() {
             <button
               onClick={handleAddToCart}
               disabled={addingToCart}
-              className="flex-1 flex items-center justify-center gap-2 py-3 bg-gray-900 text-white text-sm font-medium rounded-xl hover:bg-gray-800 disabled:opacity-50 transition-colors"
+              className="flex-1 flex items-center justify-center gap-2 py-3 bg-[var(--brand-primary)] text-white text-sm font-medium rounded-xl hover:bg-[var(--brand-primary-hover)] disabled:opacity-50 transition-colors"
             >
               <ShoppingCart size={16} />
               {addingToCart ? "Adding..." : "Add to Cart"}

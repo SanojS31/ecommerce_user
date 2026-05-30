@@ -62,7 +62,7 @@ export default function OrdersSection() {
         </p>
         <Link
           href="/products"
-          className="inline-block mt-4 px-5 py-2.5 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors"
+          className="inline-block mt-4 px-5 py-2.5 bg-[var(--brand-primary)] text-white text-sm font-medium rounded-lg hover:bg-[var(--brand-primary-hover)] transition-colors"
         >
           Start Shopping
         </Link>

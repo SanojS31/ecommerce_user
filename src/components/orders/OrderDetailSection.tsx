@@ -70,7 +70,7 @@ export default function OrderDetailSection() {
   };
 
   const inputClass =
-    "w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900 bg-white";
+    "w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-[var(--brand-primary)] focus:border-[var(--brand-primary)] bg-white";
 
   if (isLoading) {
     return (
@@ -119,7 +119,7 @@ export default function OrderDetailSection() {
           {order.orderStatus === "payment_pending" && (
             <button
               onClick={() => setProofModal(true)}
-              className="px-3 py-1.5 bg-gray-900 text-white text-xs font-medium rounded-lg hover:bg-gray-800 transition-colors"
+              className="px-3 py-1.5 bg-[var(--brand-primary)] text-white text-xs font-medium rounded-lg hover:bg-[var(--brand-primary-hover)] transition-colors"
             >
               Submit Payment Proof
             </button>
@@ -411,7 +411,7 @@ export default function OrderDetailSection() {
             <button
               onClick={handleSubmitProof}
               disabled={submitting || !utrNumber.trim()}
-              className="flex-1 py-2.5 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-800 disabled:opacity-50 transition-colors"
+              className="flex-1 py-2.5 bg-[var(--brand-primary)] text-white text-sm font-medium rounded-lg hover:bg-[var(--brand-primary-hover)] disabled:opacity-50 transition-colors"
             >
               {submitting ? "Submitting..." : "Submit"}
             </button>

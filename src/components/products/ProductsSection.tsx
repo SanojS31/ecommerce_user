@@ -120,7 +120,7 @@ export default function ProductsSection() {
           onClick={() => setShowFilters(!showFilters)}
           className={`flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-lg border transition-colors ${
             showFilters || hasActiveFilters
-              ? "bg-gray-900 text-white border-gray-900"
+              ? "bg-[var(--brand-primary)] text-white border-[var(--brand-primary)]"
               : "bg-white text-gray-600 border-gray-200 hover:border-gray-400"
           }`}
         >
@@ -144,12 +144,12 @@ export default function ProductsSection() {
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
             placeholder="Search products..."
-            className="w-full pl-9 pr-4 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900"
+            className="w-full pl-9 pr-4 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-[var(--brand-primary)] focus:border-[var(--brand-primary)]"
           />
         </div>
         <button
           type="submit"
-          className="px-4 py-2.5 bg-gray-900 text-white text-sm rounded-lg hover:bg-gray-800 transition-colors"
+          className="px-4 py-2.5 bg-[var(--brand-primary)] text-white text-sm rounded-lg hover:bg-[var(--brand-primary-hover)] transition-colors"
         >
           Search
         </button>
@@ -180,7 +180,7 @@ export default function ProductsSection() {
                     }
                     className={`px-2.5 py-1 text-xs rounded-lg border transition-colors ${
                       selectedSize === s
-                        ? "bg-gray-900 text-white border-gray-900"
+                        ? "bg-[var(--brand-primary)] text-white border-[var(--brand-primary)]"
                         : "bg-white text-gray-600 border-gray-200 hover:border-gray-400"
                     }`}
                   >
@@ -201,7 +201,7 @@ export default function ProductsSection() {
                   setSelectedAge(e.target.value);
                   setPage(1);
                 }}
-                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-900 bg-white"
+                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-[var(--brand-primary)] bg-white"
               >
                 <option value="">All ages</option>
                 {AGE_OPTIONS.map((a) => (
@@ -223,7 +223,7 @@ export default function ProductsSection() {
                   setSortOrder(order);
                   setPage(1);
                 }}
-                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-900 bg-white"
+                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-[var(--brand-primary)] bg-white"
               >
                 {SORT_OPTIONS.map((opt) => (
                   <option

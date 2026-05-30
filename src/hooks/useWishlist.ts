@@ -43,8 +43,12 @@ async function clearWishlist() {
   return res.data;
 }
 
-export function useGetWishlist() {
-  return useQuery({ queryKey: ["wishlist"], queryFn: getWishlist });
+export function useGetWishlist(enabled = true) {
+  return useQuery({
+    queryKey: ["wishlist"],
+    queryFn: getWishlist,
+    enabled,
+  });
 }
 
 export function useAddToWishlist() {
