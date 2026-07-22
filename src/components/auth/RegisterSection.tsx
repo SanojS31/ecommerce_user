@@ -51,13 +51,13 @@ export default function RegisterSection() {
         {/* Right: form, exactly half width, content vertically centered without overflow */}
         <div className="flex h-full flex-col overflow-y-auto px-6 pt-10 sm:px-10">
           <div className="mx-auto w-full max-w-md">
-            <div className="mb-5 flex flex-col items-center justify-center text-center">
+            <div className="mb-3 flex flex-col items-center justify-center text-center">
               <img
                 src="/MIRNI_logo.svg"
                 alt="Mirni Collections"
-                className="mb-3 h-14 w-14 rounded-2xl object-contain shadow-sm"
+                className="mb-1 h-14 w-14 rounded-2xl object-contain shadow-sm"
               />
-              <h1 className="mt-1.5 text-lg font-semibold text-gray-950 sm:text-3xl">
+              <h1 className="mt-1.5 text-lg font-semibold text-gray-950 sm:text-2xl">
                 Create your account
               </h1>
               <p className="mt-1.5 text-sm leading-6 text-gray-500">
@@ -83,7 +83,7 @@ export default function RegisterSection() {
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-3">
+              <form onSubmit={handleSubmit} className="space-y-2">
                 <div>
                   <label className="mb-1 block text-sm font-medium text-gray-700">
                     Full Name <span className="text-red-500">*</span>
@@ -169,7 +169,7 @@ export default function RegisterSection() {
                 <button
                   type="submit"
                   disabled={isPending}
-                  className="w-full rounded-2xl bg-[var(--brand-primary)] px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-200/60 transition hover:bg-[var(--brand-primary-hover)] disabled:opacity-50"
+                  className="w-full rounded-2xl bg-[var(--brand-primary)] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-purple-200/60 transition hover:bg-[var(--brand-primary-hover)] disabled:opacity-50"
                 >
                   {isPending ? "Creating account..." : "Create account"}
                 </button>
