@@ -30,6 +30,7 @@ export function saveTokens(accessToken: string, refreshToken: string) {
   if (typeof window === "undefined") return;
   localStorage.setItem("userAccessToken", accessToken);
   localStorage.setItem("userRefreshToken", refreshToken);
+  window.dispatchEvent(new Event("auth-change"));
 }
 
 export function clearAuth() {
@@ -37,6 +38,7 @@ export function clearAuth() {
   localStorage.removeItem("userAccessToken");
   localStorage.removeItem("userRefreshToken");
   localStorage.removeItem("userData");
+  window.dispatchEvent(new Event("auth-change"));
 }
 
 function redirectToLogin() {
@@ -45,7 +47,8 @@ function redirectToLogin() {
     window.location.pathname.includes("/login")
   )
     return;
-  window.location.href = "/login";
+  const currentPath = window.location.pathname + window.location.search;
+  window.location.href = `/login?redirect=${encodeURIComponent(currentPath)}`;
 }
 
 let refreshTokenRequest: Promise<string> | null = null;

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Eye, EyeOff } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 import { useRegister } from "@/hooks/useAuth";
 
 export default function RegisterSection() {
@@ -13,6 +14,10 @@ export default function RegisterSection() {
     phone: "",
   });
   const [showPassword, setShowPassword] = useState(false);
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirect");
+  const loginHref = redirectUrl ? `/login?redirect=${encodeURIComponent(redirectUrl)}` : "/login";
+
   const { mutate: register, isPending, error, isSuccess } = useRegister();
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -72,14 +77,7 @@ export default function RegisterSection() {
                   Account created successfully!
                 </p>
                 <p className="mt-2 text-sm text-gray-500">
-                  Please{" "}
-                  <Link
-                    href="/login"
-                    className="font-semibold text-[var(--brand-primary-hover)] hover:underline"
-                  >
-                    login
-                  </Link>{" "}
-                  to continue
+                  Redirecting you...
                 </p>
               </div>
             ) : (
@@ -180,7 +178,7 @@ export default function RegisterSection() {
               <p className="mt-4 text-center text-sm text-gray-500">
                 Already have an account?{" "}
                 <Link
-                  href="/login"
+                  href={loginHref}
                   className="font-semibold text-[var(--brand-primary-hover)] hover:underline"
                 >
                   Sign in

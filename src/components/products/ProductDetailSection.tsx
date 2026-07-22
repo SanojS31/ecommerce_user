@@ -121,7 +121,12 @@ export default function ProductDetailSection() {
   const [reviewSubmitted, setReviewSubmitted] = useState(false);
 
   useEffect(() => {
-    setIsLoggedIn(Boolean(localStorage.getItem("userAccessToken")));
+    const checkAuth = () => {
+      setIsLoggedIn(Boolean(localStorage.getItem("userAccessToken")));
+    };
+    checkAuth();
+    window.addEventListener("auth-change", checkAuth);
+    return () => window.removeEventListener("auth-change", checkAuth);
   }, []);
 
   const product = data?.product;
@@ -183,7 +188,10 @@ export default function ProductDetailSection() {
   };
 
   const handleAddToCart = () => {
-    if (!isLoggedIn) { router.push("/login"); return; }
+    if (!isLoggedIn) {
+      router.push(`/login?redirect=${encodeURIComponent(window.location.pathname)}`);
+      return;
+    }
     if (!selectedVariant) {
       toast.warning("Please select a variant first");
       return;
@@ -199,14 +207,20 @@ export default function ProductDetailSection() {
   };
 
   const handleWishlist = () => {
-    if (!isLoggedIn) { router.push("/login"); return; }
+    if (!isLoggedIn) {
+      router.push(`/login?redirect=${encodeURIComponent(window.location.pathname)}`);
+      return;
+    }
     if (isInWishlist) removeFromWishlist(productId);
     else addToWishlist(productId);
   };
 
   const handleSubmitReview = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!isLoggedIn) { router.push("/login"); return; }
+    if (!isLoggedIn) {
+      router.push(`/login?redirect=${encodeURIComponent(window.location.pathname)}`);
+      return;
+    }
     if (!reviewComment.trim()) { toast.warning("Please write a comment"); return; }
     submitReview(
       { rating: reviewRating, title: reviewTitle, comment: reviewComment },

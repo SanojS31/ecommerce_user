@@ -1,5 +1,10 @@
+import { Suspense } from "react";
 import RegisterSection from "@/components/auth/RegisterSection";
 
 export default function RegisterPage() {
-  return <RegisterSection />;
+  return (
+    <Suspense>
+      <RegisterSection />
+    </Suspense>
+  );
 }

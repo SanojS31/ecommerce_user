@@ -3,11 +3,16 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Eye, EyeOff } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 import { useLogin } from "@/hooks/useAuth";
 
 export default function LoginSection() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirect");
+  const registerHref = redirectUrl ? `/register?redirect=${encodeURIComponent(redirectUrl)}` : "/register";
+
   const { mutate: login, isPending, error } = useLogin();
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -118,7 +123,7 @@ export default function LoginSection() {
             <p className="mt-6 text-center text-sm text-gray-500">
               New to Mirni?{" "}
               <Link
-                href="/register"
+                href={registerHref}
                 className="font-semibold text-[var(--brand-primary-hover)] hover:underline"
               >
                 Create account

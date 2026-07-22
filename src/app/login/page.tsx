@@ -1,5 +1,10 @@
+import { Suspense } from "react";
 import LoginSection from "@/components/auth/LoginSection";
 
 export default function LoginPage() {
-  return <LoginSection />;
+  return (
+    <Suspense>
+      <LoginSection />
+    </Suspense>
+  );
 }

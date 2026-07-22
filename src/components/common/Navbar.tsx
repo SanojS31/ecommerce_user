@@ -29,18 +29,29 @@ export default function Navbar() {
     ) || 0;
 
   useEffect(() => {
-    const token = localStorage.getItem("userAccessToken");
-    const userData = localStorage.getItem("userData");
-    setIsLoggedIn(!!token);
-    if (userData) {
-      const parsed = JSON.parse(userData);
-      setUserName(parsed?.name || "");
-    }
+    const checkAuth = () => {
+      const token = localStorage.getItem("userAccessToken");
+      const userData = localStorage.getItem("userData");
+      setIsLoggedIn(!!token);
+      if (userData) {
+        try {
+          const parsed = JSON.parse(userData);
+          setUserName(parsed?.name || "");
+        } catch {
+          setUserName("");
+        }
+      } else {
+        setUserName("");
+      }
+    };
+
+    checkAuth();
+    window.addEventListener("auth-change", checkAuth);
+    return () => window.removeEventListener("auth-change", checkAuth);
   }, [pathname]);
 
   const handleLogout = () => {
     clearAuth();
-    setIsLoggedIn(false);
     router.push("/login");
   };
 

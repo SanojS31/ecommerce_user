@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import httpClient, { saveTokens, clearAuth } from "@/app/api/httpClient";
 import { userApiRoutes } from "@/utils/constants";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export interface RegisterPayload {
   name: string;
@@ -56,16 +56,30 @@ async function logout() {
 
 export function useRegister() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirect");
+
   return useMutation({
     mutationFn: register,
     onSuccess: (data) => {
-      router.push("/login");
+      if (data.accessToken && data.refreshToken) {
+        saveTokens(data.accessToken, data.refreshToken);
+        localStorage.setItem("userData", JSON.stringify(data.user));
+      }
+      if (redirectUrl) {
+        router.push(redirectUrl);
+      } else {
+        router.push("/home");
+      }
     },
   });
 }
 
 export function useLogin() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirect");
+
   return useMutation({
     mutationFn: login,
     onSuccess: (data) => {
@@ -73,7 +87,11 @@ export function useLogin() {
         saveTokens(data.accessToken, data.refreshToken);
         localStorage.setItem("userData", JSON.stringify(data.user));
       }
-      router.push("/home");
+      if (redirectUrl) {
+        router.push(redirectUrl);
+      } else {
+        router.push("/home");
+      }
     },
   });
 }
