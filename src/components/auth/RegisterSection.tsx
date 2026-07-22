@@ -57,9 +57,13 @@ export default function RegisterSection() {
                 alt="Mirni Collections"
                 className="mb-3 h-14 w-14 rounded-2xl object-contain shadow-sm"
               />
-              <h1 className="mt-1.5 text-xl font-semibold text-gray-950 sm:text-3xl">
+              <h1 className="mt-1.5 text-lg font-semibold text-gray-950 sm:text-3xl">
                 Create your account
               </h1>
+              <p className="mt-1.5 text-sm leading-6 text-gray-500">
+                Save addresses, track orders, and discover fresh kids, baby,
+                and girls collections.
+              </p>
             </div>
 
             {isSuccess ? (
