@@ -40,4 +40,8 @@ export const userApiRoutes = Object.freeze({
     setDefault: (id: string) =>
       `/api/user/profile/address/set-default/${id}`,
   },
+  review: {
+    getReviews: (productId: string) => `/api/user/product/${productId}/reviews`,
+    submitReview: (productId: string) => `/api/user/product/${productId}/reviews`,
+  },
 });

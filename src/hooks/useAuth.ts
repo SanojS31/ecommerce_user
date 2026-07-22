@@ -5,9 +5,9 @@ import { useRouter } from "next/navigation";
 
 export interface RegisterPayload {
   name: string;
-  email: string;
+  email?: string;
   password: string;
-  phone?: string;
+  phone: string;
 }
 
 export interface LoginPayload {

@@ -19,9 +19,9 @@ export default function RegisterSection() {
     e.preventDefault();
     register({
       name: form.name,
-      email: form.email,
+      email: form.email || undefined,
       password: form.password,
-      phone: form.phone || undefined,
+      phone: form.phone,
     });
   };
 
@@ -29,8 +29,8 @@ export default function RegisterSection() {
     "w-full rounded-2xl border border-pink-100 bg-white/90 px-4 py-3 text-sm text-gray-800 shadow-sm outline-none transition focus:border-[var(--brand-primary)] focus:ring-2 focus:ring-[var(--brand-primary)]/25";
 
   return (
-    <div className="min-h-screen bg-[#fff8fb] px-4 py-6 lg:px-8">
-      <div className="mx-auto grid min-h-[calc(100vh-48px)] max-w-6xl overflow-hidden rounded-[2rem] border border-pink-100 bg-white shadow-[0_24px_80px_rgba(198,161,207,0.22)] lg:grid-cols-[1.05fr_0.95fr]">
+    <div className="h-screen flex flex-col items-center justify-center bg-[#fff8fb] px-4 py-6 lg:px-8 overflow-hidden">
+      <div className="mx-auto w-full max-w-6xl h-full max-h-[750px] grid overflow-hidden rounded-[2rem] border border-pink-100 bg-white shadow-[0_24px_80px_rgba(198,161,207,0.22)] lg:grid-cols-[0.8fr_1.2fr]">
         <div className="relative hidden lg:block">
           <img
             src="/auth-kids-boutique.png"
@@ -103,7 +103,7 @@ export default function RegisterSection() {
 
                 <div>
                   <label className="mb-1.5 block text-sm font-medium text-gray-700">
-                    Email <span className="text-red-500">*</span>
+                    Email
                   </label>
                   <input
                     type="email"
@@ -112,14 +112,13 @@ export default function RegisterSection() {
                       setForm({ ...form, email: e.target.value })
                     }
                     placeholder="you@example.com"
-                    required
                     className={inputClass}
                   />
                 </div>
 
                 <div>
                   <label className="mb-1.5 block text-sm font-medium text-gray-700">
-                    Phone
+                    Phone <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="tel"
@@ -128,6 +127,7 @@ export default function RegisterSection() {
                       setForm({ ...form, phone: e.target.value })
                     }
                     placeholder="9876543210"
+                    required
                     className={inputClass}
                   />
                 </div>

@@ -18,8 +18,10 @@ export default function CartSection() {
   const cart = data?.cart;
   const items: CartItem[] = cart?.items || [];
 
-  const getVariantId = (item: CartItem) =>
-    typeof item.variant === "string" ? item.variant : item.variant._id;
+  const getVariantId = (item: CartItem) => {
+    if (!item.variant) return "";
+    return typeof item.variant === "string" ? item.variant : item.variant._id;
+  };
 
   const handleQtyChange = (variantId: string, current: number, delta: number) => {
     const newQty = current + delta;

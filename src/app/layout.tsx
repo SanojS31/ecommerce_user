@@ -7,7 +7,7 @@ import FloatingWhatsapp from "@/components/common/FloatingWhatsapp";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Store",
+  title: "Mirni",
   description: "Shop the latest collection",
 };
 
