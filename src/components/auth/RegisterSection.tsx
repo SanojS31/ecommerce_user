@@ -26,12 +26,13 @@ export default function RegisterSection() {
   };
 
   const inputClass =
-    "w-full rounded-2xl border border-pink-100 bg-white/90 px-4 py-3 text-sm text-gray-800 shadow-sm outline-none transition focus:border-[var(--brand-primary)] focus:ring-2 focus:ring-[var(--brand-primary)]/25";
+    "w-full rounded-2xl border border-pink-100 bg-white/90 px-4 py-2.5 text-sm text-gray-800 shadow-sm outline-none transition focus:border-[var(--brand-primary)] focus:ring-2 focus:ring-[var(--brand-primary)]/25";
 
   return (
-    <div className="h-screen flex flex-col items-center justify-center bg-[#fff8fb] px-4 py-6 lg:px-8 overflow-hidden">
-      <div className="mx-auto w-full max-w-6xl h-full max-h-[750px] grid overflow-hidden rounded-[2rem] border border-pink-100 bg-white shadow-[0_24px_80px_rgba(198,161,207,0.22)] lg:grid-cols-[0.8fr_1.2fr]">
-        <div className="relative hidden lg:block">
+    <div className="h-screen w-full flex items-center justify-center bg-[#fff8fb] px-4 py-6 lg:px-8 overflow-hidden">
+      <div className="mx-auto grid h-full max-h-[750px] w-full max-w-7xl overflow-hidden rounded-[2rem] border border-pink-100 bg-white shadow-[0_24px_80px_rgba(198,161,207,0.22)] lg:grid-cols-2">
+        {/* Left: image, exactly half width, half height */}
+        <div className="relative hidden h-full lg:block">
           <img
             src="/auth-kids-boutique.png"
             alt="Mirni kids and baby boutique collection"
@@ -47,21 +48,22 @@ export default function RegisterSection() {
           </div>
         </div>
 
-        <div className="flex items-center justify-center px-5 py-10 sm:px-10">
-          <div className="w-full max-w-md">
-            <div className="mb-8">
+        {/* Right: form, exactly half width, content vertically centered without overflow */}
+        <div className="flex h-full flex-col overflow-y-auto px-6 pt-10 sm:px-10">
+          <div className="mx-auto w-full max-w-md">
+            <div className="mb-5 flex flex-col items-center justify-center text-center">
               <img
                 src="/MIRNI_logo.svg"
                 alt="Mirni Collections"
-                className="mb-6 h-16 w-16 rounded-2xl object-contain shadow-sm"
+                className="mb-3 h-14 w-14 rounded-2xl object-contain shadow-sm"
               />
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--brand-primary-hover)]">
                 Join Mirni
               </p>
-              <h1 className="mt-2 text-3xl font-semibold text-gray-950">
+              <h1 className="mt-1.5 text-2xl font-semibold text-gray-950 sm:text-3xl">
                 Create your account
               </h1>
-              <p className="mt-2 text-sm leading-6 text-gray-500">
+              <p className="mt-1.5 text-sm leading-6 text-gray-500">
                 Save addresses, track orders, and discover fresh kids, baby,
                 and girls collections.
               </p>
@@ -84,9 +86,9 @@ export default function RegisterSection() {
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-3">
                 <div>
-                  <label className="mb-1.5 block text-sm font-medium text-gray-700">
+                  <label className="mb-1 block text-sm font-medium text-gray-700">
                     Full Name <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -102,7 +104,7 @@ export default function RegisterSection() {
                 </div>
 
                 <div>
-                  <label className="mb-1.5 block text-sm font-medium text-gray-700">
+                  <label className="mb-1 block text-sm font-medium text-gray-700">
                     Email
                   </label>
                   <input
@@ -117,7 +119,7 @@ export default function RegisterSection() {
                 </div>
 
                 <div>
-                  <label className="mb-1.5 block text-sm font-medium text-gray-700">
+                  <label className="mb-1 block text-sm font-medium text-gray-700">
                     Phone <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -133,7 +135,7 @@ export default function RegisterSection() {
                 </div>
 
                 <div>
-                  <label className="mb-1.5 block text-sm font-medium text-gray-700">
+                  <label className="mb-1 block text-sm font-medium text-gray-700">
                     Password <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
@@ -178,7 +180,7 @@ export default function RegisterSection() {
             )}
 
             {!isSuccess && (
-              <p className="mt-6 text-center text-sm text-gray-500">
+              <p className="mt-4 text-center text-sm text-gray-500">
                 Already have an account?{" "}
                 <Link
                   href="/login"
