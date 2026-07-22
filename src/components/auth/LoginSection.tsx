@@ -37,9 +37,9 @@ export default function LoginSection() {
           </div>
         </div>
 
-        <div className="flex items-center justify-center px-5 py-10 sm:px-10">
-          <div className="w-full max-w-md">
-            <div className="mb-8">
+        <div className="flex flex-col px-5 py-10 sm:px-10 overflow-y-auto custom-scrollbar">
+          <div className="m-auto w-full max-w-md shrink-0 py-4">
+            <div className="mb-8 flex flex-col items-center">
               <img
                 src="/MIRNI_logo.svg"
                 alt="Mirni Collections"
@@ -51,7 +51,7 @@ export default function LoginSection() {
               <h1 className="mt-2 text-3xl font-semibold text-gray-950">
                 Sign in to continue
               </h1>
-              <p className="mt-2 text-sm leading-6 text-gray-500">
+              <p className="mt-2 text-sm text-center leading-6 text-gray-500">
                 Keep shopping cozy kidswear, baby essentials, and pretty picks
                 for every little celebration.
               </p>
