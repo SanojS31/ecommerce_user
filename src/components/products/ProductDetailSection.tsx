@@ -8,7 +8,6 @@ import {
   Star,
   ChevronDown,
   ChevronUp,
-  Shield,
   RotateCcw,
   Truck,
   ImageIcon,
@@ -26,6 +25,14 @@ import { useGetReviews, useSubmitReview } from "@/hooks/useReviews";
 import { toast } from "react-toastify";
 
 const SIZE_ORDER = ["XS", "S", "M", "L", "XL", "XXL", "XXXL"];
+
+// Format age group label: "2-3 years" → "2 TO 3 YRS"
+function formatAgeLabel(age: string): string {
+  return age
+    .replace(/(\d+)-(\d+)\s*years?/i, "$1 TO $2 YRS")
+    .replace(/(\d+)-(\d+)\s*months?/i, "$1 TO $2 MOS")
+    .toUpperCase();
+}
 
 function StarRating({
   rating,
@@ -457,7 +464,10 @@ export default function ProductDetailSection() {
           {product.options?.includes("ageGroup") && getAgeVariants().length > 0 && (
             <div>
               <p className="text-sm font-semibold text-gray-800 mb-2.5">
-                Age Group
+                Size :{" "}
+                <span className="font-normal text-gray-500">
+                  {selectedAttrs.ageGroup ? formatAgeLabel(selectedAttrs.ageGroup) : ""}
+                </span>
               </p>
               <div className="flex flex-wrap gap-2">
                 {getAgeVariants().map((age: string) => {
@@ -465,19 +475,21 @@ export default function ProductDetailSection() {
                     (va: Variant) => (va.attributes as any).ageGroup === age
                   );
                   const outOfStock = !v || v.stock === 0;
+                  const isSelected = selectedAttrs.ageGroup === age;
                   return (
                     <button
                       key={age}
                       onClick={() => !outOfStock && handleAttrSelect("ageGroup", age)}
                       disabled={outOfStock}
-                      className={`h-10 px-4 text-sm font-medium rounded-xl border-2 transition-all ${selectedAttrs.ageGroup === age
-                        ? "border-[var(--brand-primary)] bg-[var(--brand-primary-soft)] text-[var(--brand-primary-hover)]"
-                        : outOfStock
-                          ? "border-gray-100 text-gray-300 cursor-not-allowed line-through bg-gray-50"
-                          : "border-gray-200 text-gray-700 hover:border-[var(--brand-primary)]"
-                        }`}
+                      className={`h-9 px-3 text-xs font-semibold rounded-lg border transition-all ${
+                        isSelected
+                          ? "border-gray-900 bg-gray-900 text-white shadow-sm"
+                          : outOfStock
+                            ? "border-gray-200 text-gray-300 cursor-not-allowed line-through bg-gray-50"
+                            : "border-gray-300 text-gray-700 bg-white hover:border-gray-900 hover:text-gray-900"
+                      }`}
                     >
-                      {age}
+                      {formatAgeLabel(age)}
                     </button>
                   );
                 })}
@@ -566,25 +578,24 @@ export default function ProductDetailSection() {
             </button>
           </div>
 
-          {/* Feature badges */}
-          {/* <div className="grid grid-cols-3 gap-3 pt-2">
+          {/* Service Badges */}
+          <div className="flex gap-4 pt-1">
             {[
-              { icon: Truck, label: "Free Delivery", sub: "On orders ₹499+" },
-              { icon: RotateCcw, label: "Easy Returns", sub: "7 day policy" },
-              { icon: Shield, label: "100% Authentic", sub: "Quality assured" },
+              { icon: Truck, label: "EXPRESS", sub: "SHIPPING" },
+              { icon: RotateCcw, label: "EASY 4 DAYS", sub: "EXCHANGE" },
             ].map(({ icon: Icon, label, sub }) => (
               <div
                 key={label}
-                className="flex flex-col items-center text-center gap-1.5 p-3 rounded-2xl bg-[#fdf5f8] border border-pink-50"
+                className="flex items-center gap-2.5 border border-gray-200 rounded-xl px-3 py-2.5"
               >
-                <Icon size={18} className="text-[var(--brand-primary-hover)]" />
-                <span className="text-xs font-semibold text-gray-800">
-                  {label}
-                </span>
-                <span className="text-[10px] text-gray-400">{sub}</span>
+                <Icon size={20} className="text-gray-600 flex-shrink-0" />
+                <div>
+                  <p className="text-[10px] font-bold text-gray-800 leading-tight">{label}</p>
+                  <p className="text-[10px] font-bold text-gray-800 leading-tight">{sub}</p>
+                </div>
               </div>
             ))}
-          </div> */}
+          </div>
 
           {/* Accordion */}
           <div className="mt-2">
